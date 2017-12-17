@@ -1,0 +1,52 @@
+/*
+ This file is to adjust the vertical location of detector due to the change of prism 
+*/
+
+// Written by [Mengjia Ding] [16-12-2017]
+
+// Pi: OSLO constant
+// Dr: OSLO constant to convert degree to radians
+
+cmd delo(void) 
+{
+
+// Function: Detector Location
+// Try to adjust the detector location when change the prism air gap
+
+real phi_1, phi_2, alpha_1, alpha_2, beta_1, beta_2;
+real dist_1, dist_2;
+real wv_on_axis;
+real height_1, height_2, height_3, height;
+real n;
+ 
+
+set_preference(outp, off); // stp(outp,off) switch off text output
+//ssb_row_sav = sbrow; // save row after last row written to in SSB
+//ssbuf_reset(ssb_row_sav,1); // initilise spreadsheet buffer
+
+alpha_1 = PI/2 - phi_1;
+beta_1 = asin(sin(alpha_1)/n);
+
+beta_2 = PI - phi_1 - phi_2 - beta_1;
+alpha_2 = asin(sin(beta_2)*n);
+
+/******************************/
+// Offset Calculation
+
+height_1 = sin(PI/2 - phi_1 - beta_1)*sin(phi_2)*dist_1/sin(PI/2 - beta_2);
+
+height_2 = sin(phi_2 + alpha_2 - PI/2)*sin(phi_2)*dist_2/sin(PI/2 - alpha_2); 
+
+height_3 = sin(phi_2 + beta_2 - PI/2)*sin(phi_1)*(dist_1 - (height_1 + height_2)*(cot(phi_1)+cot(Phi_2)))/sin(PI/2 + beta_1);
+
+height = height_1 + height_2 + height_3;
+
+/*****************************/
+
+dcy(ims,-height);
+
+
+//ssbuf_reset(-ssb_row_sav,0); // restore ss buffer row numbering
+set_preference(outp,on); // switch text output back on
+
+}
