@@ -1,0 +1,36 @@
+/*
+ This is test file
+*/
+
+// Written by [Mengjia Ding] [16-12-2017]
+
+cmd test_ding(void)
+{
+
+//int ssb_row_sav;
+
+//set_preference(outp, off); // stp(outp,off) switch off text output
+//ssb_row_sav = sbrow; // save row after last row written to in SSB
+//ssbuf_reset(ssb_row_sav,1); // initilise spreadsheet buffer
+
+sbr;
+
+sop 0 0 0;
+//spd mon none 44 1;
+spd mon none 44 3;
+//spd mon none 44 3;
+
+sop 1 0 0;
+spd 44;
+
+/******************************/
+
+
+/*****************************/
+
+
+
+//ssbuf_reset(-ssb_row_sav,0); // restore ss buffer row numbering
+//set_preference(outp,on); // switch text output back on
+
+}
