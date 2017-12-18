@@ -23,16 +23,16 @@ real n;
 
 set_preference(outp, off); // stp(outp,off) switch off text output
 sbr;
-rin 8 8; // get the refrative index
+rin 14 14; // get the refrative index
 n = a1;
 
-dist_1 = th[8];
-dist_2 = th[9];
+dist_1 = th[14];
+dist_2 = th[15];
 
 wv_on_axis = wv[1];
 
-phi_1 = Pi/2 + tla[8]*Dr; // Tilted Angle in radians
-phi_2 = Pi/2 - tla[9]*Dr; // Tilted Angle in radians
+phi_1 = Pi/2 + tla[14]*Dr; // Tilted Angle in radians
+phi_2 = Pi/2 - tla[15]*Dr; // Tilted Angle in radians
  
 
 //ssb_row_sav = sbrow; // save row after last row written to in SSB
