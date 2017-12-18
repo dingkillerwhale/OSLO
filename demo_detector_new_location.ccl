@@ -18,7 +18,7 @@ cmd delo(void)
 real phi_1, phi_2, alpha_1, alpha_2, beta_1, beta_2;
 real dist_1, dist_2;
 real wv_on_axis;
-real height_1, height_2, height_3, height;
+real height_1, height_2, height_3;
 real n;
 
 set_preference(outp, off); // stp(outp,off) switch off text output
@@ -58,6 +58,27 @@ height = height_1 + height_2 + height_3;
 /*****************************/
 
 dcy(ims,-height);
+
+sbr;
+sop 0 0 0; // set new object point: FBY 0  FBX 0 FBZ 0
+spd mon none 30 1; // Spot Diagram at wavelength 1 with 30 APDIV
+spd mon none 30 2; // Spot Diagram at wavelength 2 with 30 APDIV
+spd mon none 30 3; // Spot Diagram at wavelength 3 with 30 APDIV
+
+R_spd = c7;
+R_diff = d7;
+Offset_centy = e7;
+
+
+if R_spd <= R_diff
+printf("Warning: Spot Size is less than Diffraction Limit");
+else if abs(Offset_centy) > 0.00325 // Maxmimum offset
+printf("Warning: Spot offset too much");
+
+
+
+
+
 
 printf("Detector has been moved to: %.4f\n", height);
 
