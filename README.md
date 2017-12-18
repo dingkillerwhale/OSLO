@@ -35,3 +35,5 @@ spd - spot_diagram: trace a spot diagram from the current object point
 spd1d: display a SPD reports graphic window with all field points defined in the current system. 1D means only field points defined in the YZ planes are shown. see graph_1d2dspd.ccl
 
 spd2d: see graph_1d2dspd.ccl
+
+sop: set object point, tracing a Hamiltonian ray which is reference ray that involve coordinates that are defied inside the lens
