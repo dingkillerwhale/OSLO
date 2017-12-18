@@ -27,3 +27,11 @@ rin: get refractive index from surface(first argument) to surface(second argumen
 wv[X]: get the X<sup>th</sup> wavelength value
 
 th[X]: get the thickness value of surface X
+
+pxt - paraxial_trace: Display the ray height, refracted angle and angle of incidence for the paraxial axial and chief rays. The default is to trace the rays in the Y-Z plane.
+
+spd - spot_diagram: trace a spot diagram from the current object point
+
+spd1d: display a SPD reports graphic window with all field points defined in the current system. 1D means only field points defined in the YZ planes are shown. see graph_1d2dspd.ccl
+
+spd2d: see graph_1d2dspd.ccl
