@@ -2,21 +2,30 @@
 Optics Software for Layout and Optimization
 
 
-CCL notes
+# CCL notes
 
-- Spreadsheet Buffer
 
-it is an array of numerical storage cells with 1999 rows numbererd as in Mocrosoft Excel and 10 columns numbered as a, b c, d, e, f, g, h, i and j, which underlies each text window. 
+
+## Spreadsheet Buffer
+
+it is an array of numerical storage cells with 1999 rows numbererd as in Mocrosoft Excel and 10 columns numbered as a, b c, d, e, f, g, h, i and j, which underlies each text window.
 
 it is used to convey the results of numberical OSLO calculations to variables in CCL commands.
+
+## Commands(Functions)
+
+stp - set_preference: set the values of the preference given by the Preference_to_set argument.
+
+  * outp: output_text
+  * mwvl: Max_wavelengths
+  * msrf: Max_surfaces
+  * On/Off state
 
 twr - textwin_reset: clear text window
 
 sbr - ssbuf_reset: clear spreadsheet buffer and change the current row index(first argument) into row index 1 and clear the number of rows(second argument)
 
-```
-When pass the message to ssb, only numerical values are stored with full precision(14 bits) but integers and headers are not included in ssb. 
-```
+**When pass the message to ssb, only numerical values are stored with full precision(14 bits) but integers and headers are not included in ssb.**
 
 sbrow: return the next row that is available to be written into  
 
@@ -30,10 +39,41 @@ th[X]: get the thickness value of surface X
 
 pxt - paraxial_trace: Display the ray height, refracted angle and angle of incidence for the paraxial axial and chief rays. The default is to trace the rays in the Y-Z plane.
 
+sop: set object point, tracing a Hamiltonian ray which is reference ray that involve coordinates that are defied inside the lens
+
+### Spot Diagram Evaluation commands
+
 spd - spot_diagram: trace a spot diagram from the current object point
 
 spd1d: display a SPD reports graphic window with all field points defined in the current system. 1D means only field points defined in the YZ planes are shown. see graph_1d2dspd.ccl
 
 spd2d: see graph_1d2dspd.ccl
 
-sop: set object point, tracing a Hamiltonian ray which is reference ray that involve coordinates that are defied inside the lens
+pls - plot_spot_diagram: plot single spot diagram
+
+### Graphics window
+
+gwo - graphwin_open: open the graphics window indicated by the numbers
+
+gwc - graphwin_close: close the graphcis window
+
+gwt - graphwin_title: display the string Window_title bar of the active graphics window
+
+gwr - graphwin_reset: clear the graphics Window
+
+#### Plot Commands
+
+moveto:
+lineto:
+linerel:
+label:
+moverel:
+pen:
+
+```
+#include "../../public/ccl/inc/gendefs.h"
+```
+
+Two commonly used graphics commands:
+          - SAVE_DISPLAY_PREFS
+          - RESTORE_DISPLAY_PREFS
