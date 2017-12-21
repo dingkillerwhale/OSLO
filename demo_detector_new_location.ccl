@@ -70,16 +70,6 @@ R_diff = d7;
 Offset_centy = e7;
 
 
-if R_spd <= R_diff
-printf("Warning: Spot Size is less than Diffraction Limit");
-else if fabs(Offset_centy) > 0.00325 // Maxmimum offset
-printf("Warning: Spot offset too much");
-
-
-
-
-
-
 printf("Detector has been moved to: %.4f\n", height);
 
 

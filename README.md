@@ -51,3 +51,29 @@ spd2d: see graph_1d2dspd.ccl
 
 pls - plot_spot_diagram: plot single spot diagram
 
+### Graphics window
+
+gwo - graphwin_open: open the graphics window indicated by the numbers
+
+gwc - graphwin_close: close the graphcis window
+
+gwt - graphwin_title: display the string Window_title bar of the active graphics window
+
+gwr - graphwin_reset: clear the graphics Window
+
+#### Plot Commands
+
+moveto:
+lineto:
+linerel:
+label:
+moverel:
+pen:
+
+```
+#include "../../public/ccl/inc/gendefs.h"
+```
+
+Two commonly used graphics commands:
+          - SAVE_DISPLAY_PREFS
+          - RESTORE_DISPLAY_PREFS
