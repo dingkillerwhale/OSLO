@@ -63,12 +63,17 @@ gwr - graphwin_reset: clear the graphics Window
 
 #### Plot Commands
 
-moveto:
-lineto:
-linerel:
+moveto: the specified coordinates are relative to the origin of the current world coordinate system
+
+moverel: the specified coordinates are relative to the last world coordinate point set by a previous line draing or positioning commands
+
+lineto: the specified coordinates are relative to the origin of the current world coordinate system
+
+linerel: the specified coordinates are relative to the last world coordinate point set by a previous line drawing or positioning commands
+
 label:
-moverel:
-pen:
+
+pen: give the colour
 
 ```
 #include "../../public/ccl/inc/gendefs.h"
