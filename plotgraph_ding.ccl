@@ -1,0 +1,66 @@
+/*
+ This file is to draw a window to plot chart 
+*/
+
+// Written by [Mengjia Ding] [16-12-2017]
+
+// Pi: OSLO constant
+// Dr: OSLO constant to convert degree to radians
+
+
+cmd plot_graph_own(int graph_win_size_min, int graph_win_size_max) // suggest input 50,700
+{
+
+set_preference(outp, off); // switch off the text output
+ssbuf_reset; // clear the spreadsheet buffer
+
+graphwin_reset;
+//graphwin_open(2, 700, 700, 0, 0); // Win_index, Win_width, Win_height, Win_x & Win_y
+// are the position of upper left corner of the win
+
+window -graph_win_size_min graph_win_size_max -graph_win_size_min graph_win_size_max; // win_x_min, win_x_man, win_y_min, win_y_max
+	
+	// Set abscissa and x label
+	moveto(0,0); // start from the origin
+	pen(1); // line colour
+	lineto(graph_win_size_max-graph_win_size_min,0); // set length of abscissa
+
+	for(i = 1; i<ceil((graph_win_size_max-graph_win_size_min)/20); i++) // for-loop to draw the abscissa symbols
+		{
+			moveto(0+i*20,0); // every 20 pixels a gap
+			linerel(0, -2); // symbol height
+		}
+	moverel(-200,-30); // set x label start position
+	//lspacing -0.5 0;
+	lsize 0.9; // change the size of characters - 0 is standard
+	label("%s","Detector Distance (mm)"); // set x label
+	
+	// Set ordinate and y label
+	moveto(0,0); // back to origin
+	lineto(0,650); // set length of the ordinate
+
+	for(i = 1; i<ceil((graph_win_size_max-graph_win_size_min)/20); i++)
+		{
+			moveto(0, 0+i*20);
+			linerel(-2, 0);
+		}
+	moverel(-20,-400);
+	langle -90; // Rotate the text in Y
+	//lspacing -0.5 0; // change the seperation of characters and lines
+	lsize 0.9;
+	label("%s","MSE Spot Size error (mm");
+	moverel(-10,10);
+	langle -90;
+	lsize 0.5;
+	label("%s","2");
+	moverel(10,5);
+	langle -90;
+	lsize 0.9;
+	label("%s",")");
+
+
+set_preference(outp, on); // switch on the text output
+gshow;
+
+
+}
