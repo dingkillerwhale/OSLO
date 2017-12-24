@@ -2,21 +2,37 @@
  This file is to draw a window to plot chart 
 */
 
-// Written by [Mengjia Ding] [16-12-2017]
+// Written by [Mengjia Ding] [22-12-2017]
 
 // Pi: OSLO constant
 // Dr: OSLO constant to convert degree to radians
 
+#include  "../../public/ccl/inc/gendefs.h"
 
 cmd plot_graph_own(int graph_win_size_min, int graph_win_size_max) // suggest input 50,700
 {
+static int ssb_row_sav;
+//static char str1[80], str2[80], str3[80]; // initialise string vectors for message in notice board
+int  x_pos_win[650], y_pos_win_index[650];
+real y_pos_win[650];
+real y_pos_win_rel, y_pos_win_abs, y_pos_win_pct;
+real z_origin;
+			
+
+SAVE_DISPLAY_PREFS; // as defined in gendefs.h
 
 set_preference(outp, off); // switch off the text output
-ssbuf_reset; // clear the spreadsheet buffer
+ssb_row_sav = sbrow;
+ssbuf_reset(ssb_row_sav,1); // clear the spreadsheet buffer
 
 graphwin_reset;
 //graphwin_open(2, 700, 700, 0, 0); // Win_index, Win_width, Win_height, Win_x & Win_y
 // are the position of upper left corner of the win
+
+//*************************************************
+// Open the windonw 
+// Plot the abscissa and ordinate plus those titles
+//*************************************************
 
 window -graph_win_size_min graph_win_size_max -graph_win_size_min graph_win_size_max; // win_x_min, win_x_man, win_y_min, win_y_max
 	
@@ -25,9 +41,9 @@ window -graph_win_size_min graph_win_size_max -graph_win_size_min graph_win_size
 	pen(1); // line colour
 	lineto(graph_win_size_max-graph_win_size_min,0); // set length of abscissa
 
-	for(i = 1; i<ceil((graph_win_size_max-graph_win_size_min)/20); i++) // for-loop to draw the abscissa symbols
+	for(i = 1; i<ceil((graph_win_size_max-graph_win_size_min)/50); i++) // for-loop to draw the abscissa symbols
 		{
-			moveto(0+i*20,0); // every 20 pixels a gap
+			moveto(0+i*50,0); // every 50 pixels a gap
 			linerel(0, -2); // symbol height
 		}
 	moverel(-200,-30); // set x label start position
@@ -37,11 +53,11 @@ window -graph_win_size_min graph_win_size_max -graph_win_size_min graph_win_size
 	
 	// Set ordinate and y label
 	moveto(0,0); // back to origin
-	lineto(0,650); // set length of the ordinate
+	lineto(0,graph_win_size_max-graph_win_size_min); // set length of the ordinate
 
-	for(i = 1; i<ceil((graph_win_size_max-graph_win_size_min)/20); i++)
+	for(i = 1; i<ceil((graph_win_size_max-graph_win_size_min)/50); i++)
 		{
-			moveto(0, 0+i*20);
+			moveto(0, 0+i*50);
 			linerel(-2, 0);
 		}
 	moverel(-20,-400);
@@ -58,9 +74,54 @@ window -graph_win_size_min graph_win_size_max -graph_win_size_min graph_win_size
 	lsize 0.9;
 	label("%s",")");
 
+// Start to inset the data that want to be drew in the window
 
+// 23-12-17 update
+// draw the MSE of Spot Size vs Diffraction Limit as a function of detector distance
+
+	moveto(0,0);
+	pen(1);
+	z_origin = th[ims-1];
+	th(ims-1, z_origin-0.325);
+
+	for(i = 0; i < 650; i++)
+		{ 
+			th(ims-1, th[ims-1]+0.001);
+			
+			//printf("Current Detector Distance: %.4f \n",th[ims-1]);
+			x_pos_win[i] = i+1;
+			set_object_point(0, 0, 0);
+			spd mon none 44 1;
+			y_pos_win[i] = fabs(ssb(7,3)-ssb(7,4));
+			sbr;	
+		}
+	
+	sort(y_pos_win_index, y_pos_win); // sort the postion of y in ascending order, first index is min and last index is max
+		
+		
+	for(i = 0; i < 650; i++)
+		{
+			y_pos_win_rel = y_pos_win[i] - y_pos_win[y_pos_win_index[0]];
+			y_pos_win_abs = y_pos_win[y_pos_win_index[649]] - y_pos_win[y_pos_win_index[0]];
+			y_pos_win_pct = y_pos_win_rel/y_pos_win_abs;
+			
+			if(i == 0 )
+				{
+					moveto(x_pos_win[i],y_pos_win_pct*650);
+					pen(2);
+				}
+			else
+				{ 
+					lineto(x_pos_win[i],y_pos_win_pct*650);
+				}
+		}
+	
 set_preference(outp, on); // switch on the text output
 gshow;
+RESTORE_DISPLAY_PREFS;
+th(ims-1, z_origin);
+
+
 
 
 }
