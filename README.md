@@ -63,12 +63,27 @@ gwr - graphwin_reset: clear the graphics Window
 
 #### Plot Commands
 
-moveto:
-lineto:
-linerel:
-label:
-moverel:
-pen:
+window: specify "world coordinates" to draw the window in the current viewport. (x_min, x_max, y_min, y_max)
+
+moveto: the specified coordinates are relative to the origin of the current world coordinate system
+
+moverel: the specified coordinates are relative to the last world coordinate point set by a previous line draing or positioning commands
+
+lineto: the specified coordinates are relative to the origin of the current world coordinate system
+
+linerel: the specified coordinates are relative to the last world coordinate point set by a previous line drawing or positioning commands
+
+*The use of lineto/linerel would not change the current position of cursor. When apply moveto again, the position is still in the previous position set by previous moveto command*
+
+label: give the labels for abscissa and ordinate axis
+
+langle: rotate the text in clockwise
+
+lspacing: set the speration between characters and seperation between multiple lines (each adjusted portion is 10% of the default separation). + increase and - decrease
+
+pen: give the colour
+
+gshow: all queued drawing requests for the current vector graphics window to be displayed immediately on the screen
 
 ```
 #include "../../public/ccl/inc/gendefs.h"
