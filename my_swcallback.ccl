@@ -1,0 +1,52 @@
+/*****************************************************************************************
+*  This file contains some simple callbacks that are used in the documentation examples  *
+*  with slider-wheel windows. It is meant to be extended by users as needs arise. The    *
+*  callback uses the "cblevel" parameter to designate a particular action. The user then *
+*  enters the appropriate number in the Slider-wheel Setup window in the cell marked	 *
+*  "Level". The value of "Level" is passed to this command as "cblevel" and determines 	 *
+*  the task to be performed.                                                             *
+/*****************************************************************************************/
+
+#define SW_MAXITERS           10
+#define SW_ANGSLIDER          11
+#define SW_DIFFRACTDBLT       12
+#define SW_EBRSLIDER          13
+#define SW_REFRESH            14
+
+cmd Sw_callback(int cblevel, int item, int srf)
+{
+	switch (cblevel)
+	{
+		case SW_ANGSLIDER:
+		stp outp off;
+		ang cc[0];
+		stp outp on;
+		break;
+
+		case SW_DIFFRACTDBLT:
+		sprintf(str1,"ocm18%+f\n",-cc[0]);
+		o 4 str1;
+		ite 2;
+		break;
+
+		case SW_EBRSLIDER:
+		stp outp off;
+		ebr cc[0];
+		stp outp on;
+		break;
+
+		case SW_REFRESH: // mofidified in 30/12/17
+		delo();
+		uda; // User guide
+			
+		break;
+		default:
+		if (cblevel > 0 && cblevel < SW_MAXITERS)
+			ite cblevel;
+		else
+		{
+			beep;
+			msg("Callback not implemented.");
+		}
+	}
+}
