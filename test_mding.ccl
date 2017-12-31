@@ -1,0 +1,37 @@
+/*
+ This is test file
+*/
+
+// Written by [Mengjia Ding] [16-12-2017]
+
+cmd test_ding(void)
+{
+
+//int ssb_row_sav;
+
+set_preference(outp, off); // stp(outp,off) switch off text output
+//ssb_row_sav = sbrow; // save row after last row written to in SSB
+//ssbuf_reset(ssb_row_sav,1); // initilise spreadsheet buffer
+
+sbr;
+
+//gwo 2;
+//gwt "Spot Diagram vs  Field Points";
+
+//th(ims-1,10);
+auf;
+
+plot_mod_trans_func(throught-frequency, monochromatic, 1, 0, sdtf, 200, 0,0, y);
+
+
+/******************************/
+
+
+/*****************************/
+
+
+
+//ssbuf_reset(-ssb_row_sav,0); // restore ss buffer row numbering
+set_preference(outp,on); // switch text output back on
+
+}
