@@ -39,7 +39,9 @@ th[X]: get the thickness value of surface X
 
 pxt - paraxial_trace: Display the ray height, refracted angle and angle of incidence for the paraxial axial and chief rays. The default is to trace the rays in the Y-Z plane.
 
-sop: set object point, tracing a Hamiltonian ray which is reference ray that involve coordinates that are defied inside the lens
+sop - set_object_point: tracing a Hamiltonian ray which is reference ray that involve coordinates that are defied inside the lens
+
+trr - trace_reference_ray: get the curretn object point data
 
 ### Spot Diagram Evaluation commands
 
@@ -92,3 +94,9 @@ gshow: all queued drawing requests for the current vector graphics window to be 
 Two commonly used graphics commands:
           - SAVE_DISPLAY_PREFS
           - RESTORE_DISPLAY_PREFS
+
+### Modulation Transfer Function Evaluation
+
+plm - plot_mod_trans_func: plots the modulation transfer function for the current object point in either through frequency or through focus
+
+mtf - mod_trans_func: computes the optical transfer function and output in text window, along with the value of the diffraction limit for the MTF

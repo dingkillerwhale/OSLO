@@ -24,15 +24,15 @@ real n;
 set_preference(outp, off); // stp(outp,off) switch off text output
 sbr;
 
-n = rn[8][1];
+n = rn[14][1]; // Prism Refractive Index
 
-dist_1 = th[8];
-dist_2 = th[9];
+dist_1 = th[14]; // Prism Length L1
+dist_2 = th[15]; // Prism Air Gap L2
 
-wv_on_axis = wv[1];
+wv_on_axis = wv[1]; // Central Wavelength
 
-phi_1 = Pi/2 + tla[8]*Dr; // Tilted Angle in radians
-phi_2 = Pi/2 - tla[9]*Dr; // Tilted Angle in radians
+phi_1 = Pi/2 + tla[14]*Dr; // Tilted Angle in radians
+phi_2 = Pi/2 - tla[15]*Dr; // Tilted Angle in radians
  
 
 //ssb_row_sav = sbrow; // save row after last row written to in SSB
@@ -53,21 +53,40 @@ height_2 = sin(phi_2 + alpha_2 - Pi/2)*sin(phi_2)*dist_2/sin(Pi/2 - alpha_2);
 
 height_3 = sin(phi_2 + beta_2 - Pi/2)*sin(phi_1)*(dist_1 - (height_1 + height_2)*(1/tan(phi_1)+1/tan(Phi_2)))/sin(Pi/2 + beta_1);
 
-height = height_1 + height_2 + height_3;
+New_height = height_1 + height_2 + height_3;
 
 /*****************************/
 
-dcy(ims,-height);
+dcy(ims,-New_height); // Move detector to the new centre point
 
+// Evaluation for Wavelength 1
 sbr;
 sop 0 0 0; // set new object point: FBY 0  FBX 0 FBZ 0
 spd mon none 30 1; // Spot Diagram at wavelength 1 with 30 APDIV
-spd mon none 30 2; // Spot Diagram at wavelength 2 with 30 APDIV
-spd mon none 30 3; // Spot Diagram at wavelength 3 with 30 APDIV
+graphwin_open(9,640,480,10,10);
+graphwin_title "Wavelength 1 Single Spot Diagram";
+pls;
 
-R_spd = c7;
-R_diff = d7;
-Offset_centy = e7;
+// Evaluation for Wavelength 2
+sbr;
+spd mon none 30 2; // Spot Diagram at wavelength 2 with 30 APDIV
+graphwin_open(10,640,480,10,495);
+graphwin_title "Wavelength 2 Single Spot Diagram";
+pls;
+
+// Evaluation for Wavelength 3
+sbr;
+spd mon none 30 3; // Spot Diagram at wavelength 3 with 30 APDIV
+graphwin_open(11,640,480,660,10);
+graphwin_title "Wavelength 3 Single Spot Diagram";
+pls;
+
+
+//spd mon none 30 2; // Spot Diagram at wavelength 2 with 30 APDIV
+//spd mon none 30 3; // Spot Diagram at wavelength 3 with 30 APDIV
+
+auf(oas); // Autofocus: oas - Minimum on-axis spot size (monochromatic)
+
 
 
 printf("Detector has been moved to: %.4f\n", height);
