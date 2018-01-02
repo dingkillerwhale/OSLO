@@ -12,7 +12,37 @@ it is an array of numerical storage cells with 1999 rows numbererd as in Mocroso
 
 it is used to convey the results of numberical OSLO calculations to variables in CCL commands.
 
+## Other variables
+
+beg_selection - first surface in a selected range in the suface data Spreadsheet
+
+cfg - current configuration number
+
+current_pen - current graphics pen numbers
+
+end_selection - last surface in a selected range in the surface data Spreadsheet
+
+gfx_window - current graphics window number
+
+lensym - flag indicating whether lens has meridional symmetry or not
+
+maxcfg - maximum defined configuration number
+
+nbr_pens - number of available graphics pens
+
+numw - number of wavelength
+
+srfssopen - flag indicating whether surface data spreadsheet is open or closed
+
+txt_window - current text window number
+
+wav - current wavelength number
+
+
+
 ## Commands(Functions)
+
+*Non-curly-bracket format in commands are preffered in case select one of those funtions existed in the command*
 
 stp - set_preference: set the values of the preference given by the Preference_to_set argument.
 
@@ -98,5 +128,9 @@ Two commonly used graphics commands:
 ### Modulation Transfer Function Evaluation
 
 plm - plot_mod_trans_func: plots the modulation transfer function for the current object point in either through frequency or through focus
+
+*Specially, stdf in default spatial frequency is spd_trf_freq command*
+
+*Example* : plm trf mon 1 0.0 200.0 0 corresponding to plm Through-frequency/focus Monchromatic/Polychromatic Wavelength Focus Maxium_frequency Mtf_graphics_symbol_number  
 
 mtf - mod_trans_func: computes the optical transfer function and output in text window, along with the value of the diffraction limit for the MTF
