@@ -23,16 +23,26 @@ delo(void)
 	real height_1, height_2, height_3;
 	real n;
 	
+	//static real wv_def[3] = {0.55, 0.45, 0.65};
+	//static real wv_def_wt[3] = {1.0, 1.0 ,1.0};
+	
 	//set_preference(graphics_autoclear, off);
 	set_preference(graphics_labels, on);
 	set_preference(graphics_axes, on);
+	
+	//set_preference(wavelength_default,0, wv_def[0]);
+	//set_preference(wavelength_default,1, wv_def[1]);
+	//set_preference(wavelength_default,2, wv_def[2]);
+	//set_preference(weight_default, 0, wv_def_wt[0]);
+	//set_preference(weight_default, 1, wv_def_wt[1]);
+	//set_preference(weight_default, 2, wv_def_wt[2]);
 
 	set_preference(outp, off); // stp(outp,off) switch off text output
 	sbr;
 
 	n = rn[14][1]; // Prism Refractive Index
 
-	dist_1 = th[14]; // Prism Length L1
+	dist_1 = th[14]; // Prism On-axis Length L1
 	dist_2 = th[15]; // Prism Air Gap L2
 
 	wv_on_axis = wv[1]; // Central Wavelength
@@ -64,57 +74,70 @@ delo(void)
 /*****************************/
 
 	dcy(ims,-New_height); // Move detector to the new centre point
+	auf(oas); // Autofocus: oas - Minimum on-axis spot size (monochromatic)
+	
+	printf("Detector has been moved to: %.4f\n", height);
+
+	//graphwin_close(32);
+	//graphwin_open(32,640,240,660,495);
+	//graphwin_title "system Overview";
+	//drl; // draw layout of current lens system
+	//ddr; // draw default rays on current lens drawing
+	
+
+	sbr;
+	sop 0 0 0;
+	graphwin_open(9,640,480,10,10);
+	graphwin_title "Wavelength 1 MTF curve";
+	plm tfr mon 1 0.0 200.0 0;
+	
+	graphwin_open(10,640,480,10,495);
+	graphwin_title "Wavelength 2 MTF curve";
+	plm tfr mon 2 0.0 200.0 0;
+
+	graphwin_open(11,640,480,660,10);
+	graphwin_title "Wavelength 3 MTF curve";
+	plm tfr mon 3 0.0 200.0 0;
 
 	// Evaluation for Wavelength 1
-	sbr;
-	sop 0 0 0; // set new object point: FBY 0  FBX 0 FBZ 0
-	spd mon none 30 1; // Spot Diagram at wavelength 1 with 30 APDIV
-	graphwin_open(9,640,480,10,10);
+	//sbr;
+	//sop 0 0 0; // set new object point: FBY 0  FBX 0 FBZ 0
+	//spd mon none 30 1; // Spot Diagram at wavelength 1 with 30 APDIV
+	//graphwin_open(9,640,480,10,10);
 		/*** Plot Single Spot Diagram - Monochromatic ***/
 		//graphwin_title "Wavelength 1 Single Spot Diagram";
 		//pls;
 	
 		/*** Plot MTF curves - Monochromatic ***/
-		graphwin_title "Wavelength 1 MTF curve";
-		plm tfr mon 1 0.0 200.0 0;
+		//graphwin_title "Wavelength 1 MTF curve";
+		//plm tfr mon 1 0.0 200.0 0;
 
 	
 
 	// Evaluation for Wavelength 2
-	sbr;
-	spd mon none 30 2; // Spot Diagram at wavelength 2 with 30 APDIV
-	graphwin_open(10,640,480,10,495);
+	//sbr;
+	//spd mon none 30 2; // Spot Diagram at wavelength 2 with 30 APDIV
+	//graphwin_open(10,640,480,10,495);
 		/*** Plot Single Spot Diagram - Monochromatic ***/
 		//graphwin_title "Wavelength 2 Single Spot Diagram";
 		//pls;
 	
 		/*** Plot MTF curves - Monochromatic ***/
-		graphwin_title "Wavelength 2 MTF curve";
-		plm tfr mon 2 0.0 200.0 0;
+		//graphwin_title "Wavelength 2 MTF curve";
+		//plm tfr mon 2 0.0 200.0 0;
 
 
 	// Evaluation for Wavelength 3
-	sbr;
-	spd mon none 30 3; // Spot Diagram at wavelength 3 with 30 APDIV
-	graphwin_open(11,640,480,660,10);
+	//sbr;
+	//spd mon none 30 3; // Spot Diagram at wavelength 3 with 30 APDIV
+	//graphwin_open(11,640,480,660,10);
 		/*** Plot Single Spot Diagram - Monochromatic ***/
 		//graphwin_title "Wavelength 3 Single Spot Diagram";
 		//pls;
 	
 		/*** Plot MTF curves - Monochromatic ***/
-		graphwin_title "Wavelength 3 MTF curve";
-		plm tfr mon 3 0.0 200.0 0;
-
-
-
-	//spd mon none 30 2; // Spot Diagram at wavelength 2 with 30 APDIV
-	//spd mon none 30 3; // Spot Diagram at wavelength 3 with 30 APDIV
-
-	auf(oas); // Autofocus: oas - Minimum on-axis spot size (monochromatic)
-
-
-
-	printf("Detector has been moved to: %.4f\n", height);
+		//graphwin_title "Wavelength 3 MTF curve";
+		//plm tfr mon 3 0.0 200.0 0;
 
 
 	//ssbuf_reset(-ssb_row_sav,0); // restore ss buffer row numbering
