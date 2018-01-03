@@ -42,7 +42,7 @@ wav - current wavelength number
 
 ## Commands(Functions)
 
-*Non-curly-bracket format in commands are preffered in case select one of those funtions existed in the command*
+*Non-curly-bracket format in commands are preferred in case select one of those funtions existed in the command*
 
 stp - set_preference: set the values of the preference given by the Preference_to_set argument.
 
